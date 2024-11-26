@@ -1,0 +1,18 @@
+stages:
+  - trigger
+
+trigger_aws_codepipeline:
+  stage: trigger
+  image: python:3.8
+  script:
+    - echo "Configuring AWS CLI..."
+    - apt-get update && apt-get install -y awscli
+    - aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID_PRO
+    - aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY_PRO
+    - aws configure set default.region $AWS_DEFAULT_REGION
+    - PIPELINE_NAME="backend-production-273354669542"
+    - echo "CodePipeline execution started."
+    - aws codepipeline start-pipeline-execution --name "$PIPELINE_NAME"
+    - echo "CodePipeline execution started successfully."
+  only:
+    - production

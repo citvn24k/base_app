@@ -1,0 +1,40 @@
+version: 0.2
+
+phases:
+  pre_build:
+    commands:
+      - echo Logging in to Amazon ECR...
+      - aws ecr get-login-password --region $AWS_DEFAULT_REGION | docker login --username AWS --password-stdin $REPOSITORY_URI
+  build:
+    commands:
+      - echo Build started on `date`
+      - echo Building the Docker image...
+      - docker build -t backend_app ./backend_app
+      - docker tag backend_app:latest $REPOSITORY_URI:latest
+      - echo '[{"name":"backend_app","imageUri":"'$REPOSITORY_URI':latest"}]' > imagedefinitions.json
+  post_build:
+    commands:
+      - echo Build completed on `date`
+      - echo Pushing the Docker image...
+      - docker push $REPOSITORY_URI:latest
+      - aws ecs describe-task-definition --task-definition $TASK_DEFINITION01 | jq .taskDefinition > taskdef.json
+      - |
+        cat << EOF > appspec.yml
+        version: 0.0
+        Resources:
+          - TargetService:
+              Type: AWS::ECS::Service
+              Properties:
+                TaskDefinition: $TASK_DEFINITION02
+                LoadBalancerInfo:
+                  ContainerName: $CONTAINER_NAME
+                  ContainerPort: $CONTAINER_PORT
+                PlatformVersion: "LATEST"
+        EOF
+
+artifacts:
+  files:
+    - '**/*'
+    - imagedefinitions.json
+    - taskdef.json
+    - appspec.yml
