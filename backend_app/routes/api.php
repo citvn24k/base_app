@@ -33,4 +33,13 @@ Route::group([
 
     Route::get('google', [\App\Http\Controllers\AuthController::class, 'redirectToGoogle'])->name('login.google');
     Route::get('google/callback', [\App\Http\Controllers\AuthController::class, 'handleGoogleCallback']);
+
+     Route::post('upload-file', [\App\Http\Controllers\FileController::class, 'upload'])->name('file.upload');
 });
+
+Route::group([
+    'middleware' => 'api',
+], function ($router) {
+     Route::post('upload-file', [\App\Http\Controllers\FileController::class, 'upload'])->name('file.upload');
+});
+
