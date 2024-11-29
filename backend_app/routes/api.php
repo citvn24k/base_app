@@ -31,8 +31,8 @@ Route::group([
     Route::get('/user-profile', [\App\Http\Controllers\AuthController::class, 'userProfile']);
     Route::post('/change-pass', [\App\Http\Controllers\AuthController::class, 'changePassWord']);
 
-    Route::get('google-login', [\App\Http\Controllers\AuthController::class, 'redirectToGoogle'])->name('login.google');
-    Route::get('google/callback', [\App\Http\Controllers\AuthController::class, 'handleGoogleCallback']);
+    Route::get('{social}/url', '\App\Http\Controllers\Api\SocialController@loginUrl');
+    Route::get('{social}/callback', '\App\Http\Controllers\Api\SocialController@loginCallback');
 
      Route::post('upload-file', [\App\Http\Controllers\FileController::class, 'upload'])->name('file.upload');
 });
