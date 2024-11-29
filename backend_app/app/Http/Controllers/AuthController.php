@@ -17,7 +17,7 @@ class AuthController extends Controller
      * @return void
      */
     public function __construct() {
-        $this->middleware('auth:api', ['except' => ['login', 'register']]);
+//        $this->middleware('auth:api', ['except' => ['login', 'register']]);
     }
 
     /**
@@ -141,7 +141,16 @@ class AuthController extends Controller
      */
     public function redirectToGoogle()
     {
-        return Socialite::driver('google')->redirect();
+        $social = 'google';
+        $hostWithHttp = '';
+        $refer = request()->headers->get('referer');
+        if (!empty($refer)){
+            $hostWithHttp = $refer;
+        }
+        $redirectUrl = $hostWithHttp . $social."/callback";
+        return Socialite::driver($social)
+            ->redirectUrl($redirectUrl)
+            ->stateless()->redirect()->getTargetUrl();
     }
 
     /**

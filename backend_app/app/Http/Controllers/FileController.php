@@ -12,7 +12,6 @@ class FileController extends Controller
         $request->validate([
             'file' => 'required|file|mimes:jpg,jpeg,png,pdf|max:2048',
         ]);
-
         $file = $request->file('file');
         $directory = 'uploads'; // Thư mục lưu file.
 

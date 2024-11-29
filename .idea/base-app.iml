@@ -39,6 +39,7 @@
       <excludeFolder url="file://$MODULE_DIR$/backend_app/vendor/laravel/serializable-closure" />
       <excludeFolder url="file://$MODULE_DIR$/backend_app/vendor/laravel/socialite" />
       <excludeFolder url="file://$MODULE_DIR$/backend_app/vendor/laravel/tinker" />
+      <excludeFolder url="file://$MODULE_DIR$/backend_app/vendor/laravel/ui" />
       <excludeFolder url="file://$MODULE_DIR$/backend_app/vendor/lcobucci/clock" />
       <excludeFolder url="file://$MODULE_DIR$/backend_app/vendor/lcobucci/jwt" />
       <excludeFolder url="file://$MODULE_DIR$/backend_app/vendor/league/commonmark" />

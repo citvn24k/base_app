@@ -149,6 +149,7 @@
       <path value="$PROJECT_DIR$/backend_app/vendor/masterminds/html5" />
       <path value="$PROJECT_DIR$/backend_app/vendor/phpoffice/phpexcel" />
       <path value="$PROJECT_DIR$/backend_app/vendor/sabberworm/php-css-parser" />
+      <path value="$PROJECT_DIR$/backend_app/vendor/laravel/ui" />
     </include_path>
   </component>
   <component name="PhpStanOptionsConfiguration">
